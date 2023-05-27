@@ -4,7 +4,9 @@ GTF_PATH=$2
 OUT_PATH=$3
 
 #STAR's output BAM header contains list of all transcript IDs
-TX_IDS=$(samtools view -H ${BAM_PATH} | awk '{print $2}' | cut -c 4-)
+TX_IDS=$(samtools view -H ${BAM_PATH} | awk '{print $2}' | cut -c 4- | head -n 5)
+
+echo $(date)
 
 #for each transcript...
 for TX in ${TX_IDS}
@@ -22,17 +24,26 @@ do
 	GENE_LENGTH=$(grep ${GENE_ID} ${GTF_PATH} | awk '$3=="gene" {print $5 - $4 + 1}')
 
 	#add to output log
-	echo "${TX}\t${GENE_ID}\t${GENE_LENGTH}" >> tmp.txt
+	echo -e "${TX}\t${GENE_ID}" >> tx_to_gene.txt
+	grep ${GENE_ID} gene_length.txt > /dev/null
+	if [ $? -ne 0 ]; then
+		echo -e "${GENE_ID}\t${GENE_LENGTH}" >> gene_length.txt
+	fi
 done
 
+
+echo $(date)
 #give python an uncompressed BAM file... or really, just the transcript IDs, don't need the other data for expression quantification
 samtools view ${BAM_PATH} | awk '{print $3}' > tmp_bam.txt
 
+echo $(date)
 #run the python script
 python mainfile.py ${OUT_PATH}
 
+echo $(date)
 #delete the temp files
-rm tmp.txt
+rm tx_to_gene.txt
+rm gene_length.txt
 rm tmp_bam.txt
 
 

@@ -3,12 +3,6 @@ BAM_PATH=$1
 GTF_PATH=$2
 OUT_PATH=$3
 
-#delete the temp files
-rm tx_list.txt
-rm tx_hist.txt
-rm tx_to_gene.txt
-rm gene_lengths.txt
-
 echo "extract from bam $(date)"
 #get all the transcripts out of the bam
 samtools view ${BAM_PATH} | awk '{print $3}' > tx_list.txt
@@ -27,11 +21,5 @@ python tx_hist.py ${OUT_PATH}
 #python mainfile.py ${OUT_PATH}
 
 echo "cleanup $(date)"
-#delete the temp files
-rm tx_list.txt
-rm tx_hist.txt
-rm tx_to_gene.txt
-rm gene_lengths.txt
-
 
 

@@ -28,9 +28,9 @@ total_reads_sequenced = 0
 
 for line in gtf_tx_file:
     #tx_gene[0] = ENSMUST, #tx_gene[1] = ENSMUSG
-    tx_gene = line.strip("\";").split("\t")
-    tx_id = tx_gene[0]
-    gene_id = tx_gene[1]
+    tx_gene = line.split(" ")
+    tx_id = tx_gene[0].strip("\";\n")
+    gene_id = tx_gene[1].strip("\";\n")
     try:
         #does this ENSMUST occur in the BAM file-- was it detected in this experiment
         freq = tx_freqs[tx_id]
@@ -58,9 +58,9 @@ lengths_file = open("gtf_genes", "r")
 lengths = {}
 
 for line in lengths_file:
-    gene_length = line.strip("\";").split("\t")
-    gene_id = gene_length[0]
-    length = gene_length[1]
+    gene_length = line.split(" ")
+    gene_id = gene_length[0].strip("\";\n")
+    length = gene_length[1].strip("\";\n")
     try:
         #just trying to throw an exception if it's not there
         dummy = txlist_on_gene[gene_id]

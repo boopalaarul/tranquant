@@ -25,7 +25,7 @@ GENE_IDS=()
 #for each transcript...
 awk '$3=="transcript" {print $14, $10}' ${GTF_PATH} > gtf_transcripts.txt
 
-exit 0
+#exit 0
 
 for LINE in $(cat tx_hist.txt)
 do

@@ -4,7 +4,7 @@ GTF_PATH=$2
 OUT_PATH=$3
 
 #STAR's output BAM header contains list of all transcript IDs
-TX_IDS=$(samtools view -H ${BAM_PATH} | awk '{print $2}' | cut -c 4- | head -n 5)
+TX_IDS=$(samtools view -H ${BAM_PATH} | awk '{print $2}' | cut -c 4-)
 
 
 #delete the temp files

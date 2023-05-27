@@ -11,7 +11,7 @@ echo "find source genes of transcripts in gtf $(date)"
 awk '$3=="transcript" {print $14, $10}' ${GTF_PATH} > gtf_transcripts.txt
 
 echo "calculate lengths of genes in gtf $(date)"
-awk '$3=="gene" {print 10, ($5 - $4 + 1)}' ${GTF_PATH} > gtf_genes.txt 
+awk '$3=="gene" {print $10, ($5 - $4 + 1)}' ${GTF_PATH} > gtf_genes.txt 
 
 echo "begin python script $(date)"
 #script to produce two column file: unique reads, & how many times they appear

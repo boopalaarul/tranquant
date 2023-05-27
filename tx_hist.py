@@ -53,14 +53,14 @@ gtf_tx_file.close()
 
 """step 3: find gene lengths"""
 
-lengths_file = open("gtf_genes", "r")
+lengths_file = open("gtf_genes.txt", "r")
 
 lengths = {}
 
 for line in lengths_file:
     gene_length = line.split(" ")
     gene_id = gene_length[0].strip("\";\n")
-    length = gene_length[1].strip("\";\n")
+    length = int(gene_length[1].strip("\";\n"))
     try:
         #just trying to throw an exception if it's not there
         dummy = txlist_on_gene[gene_id]
@@ -90,11 +90,10 @@ for gene in num_reads_on_gene.keys():
     rpk_sum += rpk
 normalization_factor = rpk_sum / 1000000
 
-"""step 6: TPM for each gene, it's the RPKM for that gene / S"""
+"""step 5: TPM for each gene, it's the RPKM for that gene / S"""
 #for column in dataframe
-#take each rpkm make a tpm
+#take each rpk make a tpm
+output_df["TPM"] = output_df["RPK"] / normalization_factor
 
-output_df["tpm"] = output_df["rpk"] / normalization_factor
 
-
-output_df.to_csv(path_or_buf="{0}.genes.results".format(sys.argv[1], sep='\t', header=True))
+output_df.to_csv(path_or_buf="{0}.genes.results".format(sys.argv[1]), sep='\t', header=True, index=False)

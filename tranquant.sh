@@ -6,6 +6,9 @@ OUT_PATH=$3
 #STAR's output BAM header contains list of all transcript IDs
 TX_IDS=$(samtools view -H ${BAM_PATH} | awk '{print $2}' | cut -c 4-)
 
+#give temp file some column headers
+echo "${TX}\t${GENE_ID}\t${GENE_LENGTH}" >> tmp.txt
+
 #for each transcript...
 for TX in ${TX_IDS}
 do
@@ -25,11 +28,15 @@ do
 	echo "${TX}\t${GENE_ID}\t${GENE_LENGTH}" >> tmp.txt
 done
 
-#run the python script
-python mainfile.py ${BAM_PATH} ${OUT_PATH}
+#give python an uncompressed BAM file... or really, just the transcript IDs, don't need the other data for expression quantification
+samtools view ${BAM_PATH} | awk '{print $3}' > tmp_bam.txt
 
-#delete the temp file
+#run the python script
+python mainfile.py ${OUT_PATH}
+
+#delete the temp files
 rm tmp.txt
+rm tmp_bam.txt
 
 
 

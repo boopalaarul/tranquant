@@ -1,8 +1,8 @@
 import sys
 import pandas as pd
 
-bam_df = pd.read_csv("tmp_bam.txt", sep='\t')
-tmp_df = pd.read_csv("tmp.txt", sep='\t')
+bam_df = pd.read_csv("tmp_bam.txt", sep='\t',header=["transcript_id"])
+tmp_df = pd.read_csv("tmp.txt", sep='\t', header=["transcript_id", "gene_id", "gene_length"])
 print(bam_df.columns)
 print(tmp_df.columns)
 
@@ -23,4 +23,4 @@ output_df = pd.DataFrame(columns=["gene_id", "transcript_id(s)", "length", "effe
 #step 5: S = sum of RPKMs / 1 million
 #step 6: TPM for each gene, it's the RPKM for that gene / S
 
-output_df.to_csv(path_or_buf="{0}.genes.results".format(sys.argv[1], sep='\t', header=True)
+output_df.to_csv(path_or_buf="{0}.genes.results".format(sys.argv[1], sep='\t', header=True))

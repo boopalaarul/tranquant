@@ -20,11 +20,17 @@ number_reads_mapping = {}
 #step 2: keep track: # reads mapping to gene i (so, some kind of running count, per gene)
 for transcript in bam_df["transcript_id"]:
     try:
-        gene_id = tx_to_gene_df.loc[tx_to_gene_df.loc[transcript][0]]
+        gene_id = tx_to_gene_df.loc[transcript, 0]
     except:
         continue
+    
 
-    number_reads_mapping[gene_id].append(transcript)
+    try:
+        old_list = number_reads_mapping[gene_id]
+    except:
+        number_reads_mapping.update({gene_id : []})
+        old_list = number_reads_mapping[gene_id]
+    number_reads_mapping[gene_id] = number_reads_mapping[gene_id] + [transcript]
 
 
     
@@ -33,9 +39,9 @@ for transcript in bam_df["transcript_id"]:
 
 rpk_sum = 0
 #O(n) across the much smaller number of genes
-for gene in number_reads_mapping.keys:
+for gene in number_reads_mapping.keys():
     #step 4: RPKM for each gene, and add each one to sum for below
-    length = gene_length_df.loc[gene][0]
+    length = gene_length_df.loc[gene, 0]
     transcript_list = number_reads_mapping[gene]
     number_reads = len(transcript_list)
     rpk = number_reads / (length / 1000)

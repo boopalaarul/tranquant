@@ -38,7 +38,7 @@ for line in gtf_tx_file:
         continue #don't have to store a useless transcript
     #from this transcript, we first want to update the gene's list of found transcripts...
     try:
-        txlist_on_gene[gene_id] = txlist_on_gene[gene_id] + ", " + tx_id
+        txlist_on_gene[gene_id] = txlist_on_gene[gene_id] + "," + tx_id
     except:
         txlist_on_gene.update({gene_id : tx_id})
     #...and then want to update the number of reads mapping to the gene.

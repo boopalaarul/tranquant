@@ -1,9 +1,11 @@
 import sys
 import pandas as pd
 
+out_path = sys.argv[1]
+
 """step 1: count all transcripts in the experiment & make list of unique IDs"""
 
-file = open("tx_list.txt", "r")
+file = open(out_path + "/tx_list.txt", "r")
 
 tx_freqs = {}
 
@@ -20,7 +22,7 @@ file.close()
 """step 2: read in gtf_transcripts, find gene of origin & how many reads map to it"""
 
 #one copy of every possible transcript-- should we sort and uniq?
-gtf_tx_file = open("gtf_transcripts.txt", "r")
+gtf_tx_file = open(out_path + "/gtf_transcripts.txt", "r")
 
 num_reads_on_gene = {}
 txlist_on_gene = {}
@@ -53,7 +55,7 @@ gtf_tx_file.close()
 
 """step 3: find gene lengths"""
 
-lengths_file = open("gtf_genes.txt", "r")
+lengths_file = open(out_path + "/gtf_genes.txt", "r")
 
 lengths = {}
 
@@ -96,4 +98,4 @@ normalization_factor = rpk_sum / 1000000
 output_df["TPM"] = output_df["RPK"] / normalization_factor
 
 
-output_df.to_csv(path_or_buf="{0}.genes.results".format(sys.argv[1]), sep='\t', header=True, index=False)
+output_df.to_csv(path_or_buf=(out_path + "/" + out_path + ".genes.results"), sep='\t', header=True, index=False)

@@ -10,6 +10,8 @@ This tool requires python and the pandas library, install python and then use pi
 
 `pip install pandas`
 
+If you want to start using the tool with the example "resultsAligned.toTranscriptome.out.bam", then skip all these steps and continue to the "Usage" section. Otherwise, continue with the following steps to generate a BAM file from an RNAseq dataset of your choice.
+
 Like RSEM, this requires that the fastq RNA-seq reads be aligned by a program like STAR, in order to produce a BAM file. If you are not starting out with such a file, it is sufficient to install STAR with 
 
 `conda install -c bioconda star`
@@ -32,7 +34,7 @@ https://www.ncbi.nlm.nih.gov/sra/SRX16999863[accn]
 
 `./generate_bam_from_genome.sh [path to reference genome] [path to GTF file] [path to FASTQ of RNAseq data]`
 
-This last option assumes you already have a STAR index.
+This last option assumes you already have a STAR index that matches the RNAseq data-- in order words, if you have RNAseq data from a mouse, the STAR index should be for a mouse genome. 
 
 3. Run the following script with the following arguments. Wait for all steps to complete, and there will be a "resultsAligned.toTranscriptome.out.bam" in the workspace/ directory.
 

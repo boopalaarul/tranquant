@@ -5,9 +5,7 @@ OUT_PATH=$3
 
 echo "extract from bam $(date)"
 
-#directory for output files
 mkdir ${OUT_PATH}
-
 #get all the transcripts out of the bam
 samtools view ${BAM_PATH} | awk '{print $3}' > ${OUT_PATH}/tx_list.txt
 

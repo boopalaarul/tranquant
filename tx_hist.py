@@ -2,7 +2,6 @@ import sys
 import pandas as pd
 
 out_path = sys.argv[1]
-
 """step 1: count all transcripts in the experiment & make list of unique IDs"""
 
 file = open(out_path + "/tx_list.txt", "r")
@@ -74,7 +73,7 @@ lengths_file.close()
 
 """step 4: calculte metrics"""
 
-output_df = pd.DataFrame(columns=["gene_id", "transcript_id(s)", "length", "effective_length","expected_count", "RPK", "TPM", "RPKM"])
+output_df = pd.DataFrame(columns=["gene_id", "transcript_id(s)", "length", "effective_length","expected_count", "TPM", "RPK", "RPKM"])
 
 rpk_sum = 0
 #O(n) across the much smaller number of genes
@@ -86,7 +85,7 @@ for gene in num_reads_on_gene.keys():
 
     #start formatting output dataframe
     rpkm = rpk / (total_reads_sequenced / 1000000)
-    output_df.loc[len(output_df.index)] = [gene, txlist_on_gene[gene], length, 0, 0, rpk, 0, rpkm]
+    output_df.loc[len(output_df.index)] = [gene, txlist_on_gene[gene], length, 0, 0, 0, rpk, rpkm]
     
     #step 5: S = sum of RPKs / 1 million
     rpk_sum += rpk
@@ -98,4 +97,4 @@ normalization_factor = rpk_sum / 1000000
 output_df["TPM"] = output_df["RPK"] / normalization_factor
 
 
-output_df.to_csv(path_or_buf=(out_path + "/" + out_path + ".genes.results"), sep='\t', header=True, index=False)
+output_df.to_csv(path_or_buf=(out_path + "/example.genes.results"), sep='\t', header=True, index=False)

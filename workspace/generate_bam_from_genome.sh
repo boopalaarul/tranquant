@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #reference genome: 
 #ref_genomes/GRCm38.fa in example
 REFFA=$1
@@ -16,4 +18,4 @@ STAR \
     --sjdbGTFfile ${GTF} \
     --sjdbOverhang 49
 
-bash generate_bam_from_fastq.sh ${STARDIR} ${FASTQ}
+./generate_bam_from_index.sh ${STARDIR} ${FASTQ}

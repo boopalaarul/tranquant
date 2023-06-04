@@ -5,3 +5,4 @@ workspace/STAR_results/
 workspace/RSEM/
 *fastq
 *fq
+test/

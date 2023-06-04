@@ -6,8 +6,8 @@ OUT_PATH=$3
 echo "extract from bam $(date)"
 
 mkdir ${OUT_PATH}
-#get all the transcripts out of the bam
-samtools view ${BAM_PATH} | awk '{print $3}' > ${OUT_PATH}/tx_list.txt
+#get all the transcripts OF SEED LENGTH (25) OR ABOVE out of the bam
+samtools view ${BAM_PATH} | awk 'length($10)>=25 {print $3}' > ${OUT_PATH}/tx_list.txt
 
 echo "find source genes of transcripts in gtf $(date)"
 awk '$3=="transcript" {print $14, $10}' ${GTF_PATH} > ${OUT_PATH}/gtf_transcripts.txt

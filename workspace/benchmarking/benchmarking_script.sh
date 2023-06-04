@@ -18,9 +18,9 @@ sort tmp.txt | uniq -c > all_expressed_genes.txt
 rm tmp.txt
 
 echo "Number of genes that occur in both files"
-awk '$1>1 {print}' all_expressed_genes.txt > genes_in_both_files.txt
+awk '$1=2 {print $2}' all_expressed_genes.txt > genes_in_both_files.txt
 wc -l genes_in_both_files.txt
 echo "Number of genes that occur in only one files"
-awk '$1=1 {print}' all_expressed_genes.txt > genes_in_one_file.txt 
+awk '$1=1 {print $2}' all_expressed_genes.txt > genes_in_one_file.txt 
 wc -l genes_in_one_file.txt
 

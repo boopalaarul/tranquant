@@ -71,7 +71,7 @@ for line in lengths_file:
     lengths.update({gene_id : length})
 lengths_file.close()
 
-"""step 4: calculte metrics"""
+"""step 4: calculate metrics"""
 
 output_df = pd.DataFrame(columns=["gene_id", "transcript_id(s)", "length", "effective_length","expected_count", "TPM", "RPK", "RPKM"])
 

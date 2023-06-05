@@ -1,5 +1,4 @@
 #!/bin/bash
-
 STARDIR=$1
 FASTQ=$2
 

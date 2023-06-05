@@ -1,6 +1,6 @@
 import pandas as pd
 
-output_df = pd.DataFrame(columns=["gene_id", "tx_id(s) [RSEM]", "tx_id(s) [tranquant]", "tx_id_agreement", "length [RSEM]", "length [tranquant]", "TPM [RSEM]", "TPM [tranquant]"])
+output_df = pd.DataFrame(columns=["gene_id", "tx_id(s)[RSEM]", "tx_id(s)[tranquant]", "tx_id_agreement", "length[RSEM]", "length[tranquant]", "TPM[RSEM]", "TPM[tranquant]","tpm_equality","tpm_difference"])
 
 """step 1: count all gene ids that occur in both files"""
 
@@ -47,10 +47,14 @@ my_results.close()
 #print(len(rsem_tx_ids.keys()))
 #print(len(my_tx_ids.keys()))
 tx_id_equality = {}
+tpm_equality = {}
+tpm_difference = {}
 for gene in gene_set:
     
     tx_id_equality.update({gene : (set(rsem_tx_ids[gene].strip("\";\n").split(",")) == set(my_tx_ids[gene].strip("\";\n").split(",")))})
-    output_df.loc[len(output_df.index)] = [gene, rsem_tx_ids[gene], my_tx_ids[gene], tx_id_equality[gene], rsem_length[gene], my_length[gene], rsem_tpm[gene], my_tpm[gene]]
+    tpm_difference.update({gene : abs(float(rsem_tpm[gene]) - float(my_tpm[gene]))})
+    tpm_equality.update({gene : (tpm_difference[gene] < 0.01)})
+    output_df.loc[len(output_df.index)] = [gene, rsem_tx_ids[gene], my_tx_ids[gene], tx_id_equality[gene], rsem_length[gene], my_length[gene], rsem_tpm[gene], my_tpm[gene], tpm_equality[gene], tpm_difference[gene]]
 
 """step 5: tx_id list equality check"""
 

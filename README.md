@@ -10,7 +10,7 @@ This tool requires python and the pandas library, install python and then use pi
 
 `pip install pandas`
 
-If you want to start using the tool with the example "resultsAligned.toTranscriptome.out.bam", then skip all these steps and continue to the "Usage" section. Otherwise, continue with the following steps to generate a BAM file from an RNAseq dataset of your choice.
+There was originally an example "resultsAligned.toTranscriptome.out.bam" here but the file was too large for Github. Continue with the following steps to generate a BAM file from an RNAseq dataset of your choice.
 
 Like RSEM, this requires that the fastq RNA-seq reads be aligned by a program like STAR, in order to produce a BAM file. If you are not starting out with such a file, it is sufficient to install STAR with 
 
@@ -28,7 +28,7 @@ In order to create an index of the genome, STAR requires a lot of RAM (20 GB+) a
 
 These files are unfortunately too big to be included in the github repository. If you prefer, the example reference genome can be manually downloaded at: https://nov2020.archive.ensembl.org/Mus_musculus/Info/Index
 Similarly, the example RNAseq data can be downloaded at:
-https://www.ncbi.nlm.nih.gov/sra/SRX16999863[accn]
+https://www.ncbi.nlm.nih.gov/sra/SRX15823475[accn]
 
 2. If you already have a reference genome, GTF annotation file, and dataset prepared, run the following script with the following arguments. Wait for all steps to complete, and there will be a "resultsAligned.toTranscriptome.out.bam" in the workspace/ directory.
 
@@ -38,7 +38,7 @@ This last option assumes you already have a STAR index that matches the RNAseq d
 
 3. Run the following script with the following arguments. Wait for all steps to complete, and there will be a "resultsAligned.toTranscriptome.out.bam" in the workspace/ directory.
 
-`./generate_bam_from_index.sh [path to STAR index directory] [path to FASTQ of RNAseq data]
+`./generate_bam_from_index.sh [path to STAR index directory] [path to FASTQ of RNAseq data]`
 
 # Usage
 

@@ -2,7 +2,10 @@ workspace/ref_genomes/
 workspace/rnaseq_data/
 workspace/STAR_index/
 workspace/STAR_results/
+workspace/RSEM_results/
+workspace/myexample/
 workspace/RSEM/
 *fastq
 *fq
+*bam
 test/

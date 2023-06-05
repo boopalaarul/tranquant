@@ -1,4 +1,6 @@
 #!/bin/bash
+=======
+>>>>>>> Stashed changes
 
 #reference genome: 
 #ref_genomes/GRCm38.fa in example

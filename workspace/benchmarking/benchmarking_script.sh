@@ -39,4 +39,21 @@ wc -l my_unique_genes.txt
 #echo "Number of genes that occur in only one files"
 #awk '$1==1 {print $2}' all_expressed_genes.txt > genes_in_one_file.txt 
 #wc -l genes_in_one_file.txt
+#python shared_genes.py
+echo "Number of shared genes for which same transcripts are listed"
+awk '$4=="True" {print}' shared_genes_comparison.txt > same_transcripts.txt
+wc -l same_transcripts.txt
+awk '{print $10}' same_transcripts.txt | datamash -H mean 1 min 1 q1 1 median 1 q3 1 max 1 
+#sstdev 1
 
+echo "Number of shared genes for which TPMs are same in both results"
+awk '$9=="True" {print}' shared_genes_comparison.txt > same_tpm.txt
+wc -l same_tpm.txt
+awk '{print $10}' same_tpm.txt | datamash -H mean 1 min 1 q1 1 median 1 q3 1 max 1 
+#sstdev 1
+
+echo "Number of shared genes for which TPM[RSEM] = TPM[tranquant] AND TPMs are same"
+awk '$9=="True" {print}' same_transcripts.txt > same_transcripts_tpm.txt
+wc -l same_transcripts_tpm.txt
+awk '{print $10}' same_transcripts_tpm.txt | datamash -H mean 1 min 1 q1 1 median 1 q3 1 max 1 
+#sstdev 1
